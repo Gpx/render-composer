@@ -1,0 +1,32 @@
+{
+  "name": "render-composer",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gpx/render-composer.git"
+  },
+  "author": "Giorgio Polvara <polvara@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gpx/render-composer/issues"
+  },
+  "homepage": "https://github.com/gpx/render-composer#readme",
+  "devDependencies": {
+    "@babel/preset-env": "7.5.4",
+    "@babel/preset-react": "7.0.0",
+    "@testing-library/jest-dom": "4.0.0",
+    "@testing-library/react": "8.0.5",
+    "babel-jest": "24.8.0",
+    "jest": "24.8.0",
+    "prettier": "1.18.2",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "semantic-release": "^15.13.18"
+  }
+}
