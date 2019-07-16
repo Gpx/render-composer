@@ -1,12 +1,9 @@
 language: node_js
 notifications:
   email: false
-jobs:
-  include:
-    - stage: release
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npm run build
-          - npx semantic-release
+after_success:
+  - npm run build
+  - npm run travis-deploy-once "npx semantic-release"
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
