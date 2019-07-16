@@ -1,4 +1,6 @@
 language: node_js
+notifications:
+  email: false
 jobs:
   include:
     - stage: release
@@ -6,4 +8,5 @@ jobs:
         provider: script
         skip_cleanup: true
         script:
+          - npm run build
           - npx semantic-release

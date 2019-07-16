@@ -1,11 +1,13 @@
 {
-  "name": "render-composer",
+  "name": "@gpx/render-composer",
   "version": "0.0.0-development",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "semantic-release": "semantic-release"
+    "build": "babel src -d dist",
+    "semantic-release": "semantic-release",
+    "cm": "npx git-cz"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,7 @@
   },
   "homepage": "https://github.com/gpx/render-composer#readme",
   "devDependencies": {
+    "@babel/cli": "7.5.0",
     "@babel/preset-env": "7.5.4",
     "@babel/preset-react": "7.0.0",
     "@testing-library/jest-dom": "4.0.0",
