@@ -57,6 +57,19 @@ test('it should allow to return data from render methods', () => {
   expect(getByText(`The value of c is C.`)).toBeInTheDocument();
 });
 
+test('it should allow to randomly set data', () => {
+  const A = {
+    ui: (children, {a}) => <>{children}</>,
+    data: () => ({a: Math.random()}),
+  };
+
+  const composedRender = renderCompose([A], render);
+  const firstRender = composedRender(<div />);
+  const secondRender = composedRender(<div />);
+
+  expect(firstRender.a).not.toBe(secondRender.a);
+});
+
 test('it should allow to overwrite data sent to wrappers', () => {
   const A = {
     ui: (children, {a}) => (
