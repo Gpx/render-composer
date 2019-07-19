@@ -105,3 +105,34 @@ test('it should allow to overwrite data sent to wrappers', () => {
   expect(c).toBe('c');
   expect(getByText(`The value of c is c.`)).toBeInTheDocument();
 });
+
+test('wraps are immutable', () => {
+  const A = wrap(children => <>{children}</>);
+  const AWithData = A.defaultData({a: 'A'});
+
+  expect(A).not.toBe(AWithData);
+
+  const B = wrap(children => (
+    <>
+      <div data-testid="b" />
+      {children}
+    </>
+  ));
+  const C = wrap(children => (
+    <>
+      <div data-testid="c" />
+      {children}
+    </>
+  ));
+  expect(A).not.toBe(A.wraps(B));
+
+  const firstRender = A.wraps(B).withRenderMethod(render)();
+  expect(firstRender.getByTestId('b')).toBeInTheDocument();
+  expect(firstRender.queryByTestId('c')).not.toBeInTheDocument();
+
+  cleanup();
+
+  const secondRender = A.wraps(C).withRenderMethod(render)();
+  expect(firstRender.queryByTestId('b')).not.toBeInTheDocument();
+  expect(firstRender.getByTestId('c')).toBeInTheDocument();
+});
