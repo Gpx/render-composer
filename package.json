@@ -1,7 +1,7 @@
 {
   "name": "@gpx/render-composer",
   "version": "0.0.0-development",
-  "description": "",
+  "description": "Create complex renders for react-testing-library",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
