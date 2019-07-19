@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 class Wrap {
   constructor({ui, childWrap, data = {}}) {
     this.ui = ui;
@@ -20,17 +22,21 @@ class Wrap {
   }
 
   wraps(childWrap) {
-    if (this.childWrap) {
-      this.childWrap.wraps(childWrap);
+    const clone = cloneDeep(this);
+
+    if (clone.childWrap) {
+      const childWrapClone = clone.childWrap.wraps(childWrap);
+      clone.childWrap = childWrapClone;
     } else {
-      this.childWrap = childWrap;
+      clone.childWrap = childWrap;
     }
-    return this;
+    return clone;
   }
 
   defaultData(data) {
-    this.data = data;
-    return this;
+    const clone = cloneDeep(this);
+    clone.data = data;
+    return clone;
   }
 
   withRenderMethod(render, opts) {

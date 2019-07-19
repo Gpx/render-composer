@@ -10,7 +10,7 @@
   />
 </a>
 
-<p>Create complex renders for <a href="https://github.com/testing-library/react-testing-library">react-testing-library</a>.</p>
+<p>Create complex renders for <a href="https://github.com/testing-library/react-testing-library">react-testing-library</a></p>
 
 <br />
 </div>
@@ -139,3 +139,5 @@ const {foo} = renderWrap(<MyComponent />);
 // This `foo` will have value `'baz'`
 const {foo} = renderWrap(<MyComponent />, {foo: 'baz'});
 ```
+
+Note that wraps are immutable so that they can be defined in one file and exported and combined.

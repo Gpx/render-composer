@@ -1,7 +1,7 @@
 {
   "name": "@gpx/render-composer",
   "version": "0.0.0-development",
-  "description": "",
+  "description": "Create complex renders for react-testing-library",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
@@ -33,5 +33,9 @@
     "react-dom": "16.8.6",
     "semantic-release": "^15.13.18",
     "travis-deploy-once": "5.0.11"
+  },
+  "dependencies": {
+    "lodash.clone": "4.5.0",
+    "lodash.clonedeep": "4.5.0"
   }
 }
