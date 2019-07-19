@@ -1,30 +1,47 @@
-function compose(wrappers) {
-  return function({children}, data) {
-    return wrappers.reverse().reduce(
-      (acc, wrapper) => {
-        let wrapperData;
-        if (wrapper.data) {
-          wrapperData =
-            typeof wrapper.data === 'function' ? wrapper.data() : wrapper.data;
-        } else {
-          wrapperData = {};
-        }
-        const finalData = {...wrapperData, ...data};
+class Wrap {
+  constructor({ui, childWrap, data = {}}) {
+    this.ui = ui;
+    this.childWrap = childWrap;
+    this.data = data;
+  }
 
-        const ret = wrapper.ui
-          ? wrapper.ui(acc.ui, finalData)
-          : wrapper(acc.ui);
-        return {ui: ret, data: {...acc.data, ...finalData}};
-      },
-      {ui: children, data: {}},
-    );
-  };
+  __render(child, data) {
+    let ui;
+    const thisData = typeof this.data === 'function' ? this.data() : this.data;
+    let finalData = {...thisData, ...data};
+    if (this.childWrap) {
+      const childResult = this.childWrap.__render(child, data);
+      ui = this.ui(childResult.ui, finalData);
+      finalData = {...finalData, ...childResult.data};
+    } else {
+      ui = this.ui(child, finalData);
+    }
+    return {ui, data: finalData};
+  }
+
+  wraps(childWrap) {
+    if (this.childWrap) {
+      this.childWrap.wraps(childWrap);
+    } else {
+      this.childWrap = childWrap;
+    }
+    return this;
+  }
+
+  defaultData(data) {
+    this.data = data;
+    return this;
+  }
+
+  withRenderMethod(render, opts) {
+    return (child, data = {}) => {
+      const renderResult = this.__render(child, data);
+      const utils = render(renderResult.ui, opts);
+      return {...utils, ...renderResult.data};
+    };
+  }
 }
 
-export function renderCompose(wrappers, render) {
-  return function(el, data = {}, options = {}) {
-    const x = compose(wrappers)({children: el}, data);
-    const utils = render(x.ui, options);
-    return {...utils, ...x.data};
-  };
+export default function wrap(ui) {
+  return new Wrap({ui});
 }

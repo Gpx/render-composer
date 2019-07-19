@@ -1,16 +1,32 @@
 import React from 'react';
 import {render, cleanup} from '@testing-library/react';
-import {renderCompose} from '.';
+import wrap from '.';
 import '@testing-library/jest-dom/extend-expect';
 
 beforeEach(cleanup);
 
-test('it should allow to compose render methods', () => {
-  const A = children => <div data-testid="A">{children}</div>;
-  const B = children => <div data-testid="B">{children}</div>;
-  const C = children => <div data-testid="C">{children}</div>;
+test('it should allow to render a wrap', () => {
+  const A = wrap(children => <div data-testid="A">{children}</div>);
 
-  const composedRender = renderCompose([A, B, C], render);
+  const composedRender = A.withRenderMethod(render);
+  const {getByTestId} = composedRender(<div data-testid="Z" />);
+
+  const z = getByTestId('Z');
+  expect(z).toBeInTheDocument();
+
+  const a = getByTestId('A');
+  expect(a).toBeInTheDocument();
+  expect(a).toContainElement(z);
+});
+
+test('it should allow to compose wraps', () => {
+  const A = wrap(children => <div data-testid="A">{children}</div>);
+  const B = wrap(children => <div data-testid="B">{children}</div>);
+  const C = wrap(children => <div data-testid="C">{children}</div>);
+
+  const composedRender = A.wraps(B)
+    .wraps(C)
+    .withRenderMethod(render);
   const {getByTestId} = composedRender(<div data-testid="Z" />);
 
   const z = getByTestId('Z');
@@ -29,26 +45,22 @@ test('it should allow to compose render methods', () => {
   expect(a).toContainElement(b);
 });
 
-test('it should allow to return data from render methods', () => {
-  const A = {
-    ui: (children, {a}) => (
-      <div>
-        The value of a is {a}.{children}
-      </div>
-    ),
-    data: {a: 'A'},
-  };
-  const B = children => <div>{children}</div>;
-  const C = {
-    ui: (children, {c}) => (
-      <div>
-        The value of c is {c}.{children}
-      </div>
-    ),
-    data: {c: 'C'},
-  };
+test('it should allow to return data from wraps', () => {
+  const A = wrap((children, {a}) => (
+    <div>
+      The value of a is {a}.{children}
+    </div>
+  )).defaultData({a: 'A'});
+  const B = wrap(children => <div>{children}</div>);
+  const C = wrap((children, {c}) => (
+    <div>
+      The value of c is {c}.{children}
+    </div>
+  )).defaultData({c: 'C'});
 
-  const composedRender = renderCompose([A, B, C], render);
+  const composedRender = A.wraps(B)
+    .wraps(C)
+    .withRenderMethod(render);
   const {getByText, a, c} = composedRender(<div />);
 
   expect(a).toBe('A');
@@ -58,12 +70,12 @@ test('it should allow to return data from render methods', () => {
 });
 
 test('it should allow to randomly set data', () => {
-  const A = {
-    ui: (children, {a}) => <>{children}</>,
-    data: () => ({a: Math.random()}),
-  };
+  const composedRender = wrap((children, {a}) => <>{children}</>)
+    .defaultData(() => ({
+      a: Math.random(),
+    }))
+    .withRenderMethod(render);
 
-  const composedRender = renderCompose([A], render);
   const firstRender = composedRender(<div />);
   const secondRender = composedRender(<div />);
 
@@ -71,25 +83,21 @@ test('it should allow to randomly set data', () => {
 });
 
 test('it should allow to overwrite data sent to wrappers', () => {
-  const A = {
-    ui: (children, {a}) => (
-      <div>
-        The value of a is {a}.{children}
-      </div>
-    ),
-    data: {a: 'A'},
-  };
-  const B = children => <div>{children}</div>;
-  const C = {
-    ui: (children, {c}) => (
-      <div>
-        The value of c is {c}.{children}
-      </div>
-    ),
-    data: {c: 'C'},
-  };
+  const A = wrap((children, {a}) => (
+    <div>
+      The value of a is {a}.{children}
+    </div>
+  )).defaultData({a: 'A'});
+  const B = wrap(children => <div>{children}</div>);
+  const C = wrap((children, {c}) => (
+    <div>
+      The value of c is {c}.{children}
+    </div>
+  )).defaultData({c: 'C'});
 
-  const composedRender = renderCompose([A, B, C], render);
+  const composedRender = A.wraps(B)
+    .wraps(C)
+    .withRenderMethod(render);
   const {getByText, a, c} = composedRender(<div />, {a: 'a', c: 'c'});
 
   expect(a).toBe('a');
