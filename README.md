@@ -1,5 +1,5 @@
 <div align="center">
-<h1>user-event</h1>
+<h1>Render Composer</h1>
 
 <a href="https://www.joypixels.com/emoji/1f32f">
   <img
