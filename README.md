@@ -5,8 +5,8 @@
   <img
     height="80"
     width="80"
-    alt="dog"
-    src="https://raw.githubusercontent.com/gpx/render-composer/master/other/burrito.png"
+    alt="burrito"
+    src="https://raw.githubusercontent.com/Gpx/render-composer/master/other/burrito.png"
   />
 </a>
 
