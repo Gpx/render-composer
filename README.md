@@ -50,9 +50,11 @@ const RouterWrap = wrap((children, {history}) => (
 )).defaultData(() => ({
   history: createMemoryHistory(),
 }));
+
 const IntlWrap = wrap((children, {locale}) => (
   <IntlProvider locale={locale}>{children}</IntlProvider>
 )).defaultData({locale: 'en'});
+
 const UserWrap = wrap((children, {user}) => (
   <UserContext.Provider value={user}>{children}</UserContext.Provider>
 )).defaultData({user: {name: 'Giorgio'}});
@@ -106,7 +108,7 @@ If you need the data to be generated every time rather than be static you can al
 pass a function to `defaultData`:
 
 ```jsx
-Wrap.defaultData(() => ({foo: 'bar'}));
+Wrap.defaultData(() => ({foo: Math.random()}));
 ```
 
 You can compose the wraps with the `wraps` method. You can chain as many wraps you want:
@@ -117,7 +119,7 @@ WrapA.wraps(WrapB)
   .wraps(WrapD);
 ```
 
-Once you are satisfied with your wrap you can get genera a render method with `withRenderMethod`:
+Once you are satisfied with your wrap you can get a render method with `withRenderMethod`:
 
 ```jsx
 import {render} from '@testing-library/react';
