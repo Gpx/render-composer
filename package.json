@@ -1,6 +1,6 @@
 {
   "name": "@gpx/render-composer",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Create complex renders for react-testing-library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
