@@ -2,13 +2,11 @@
   "name": "@gpx/render-composer",
   "version": "0.0.0-development",
   "description": "Create complex renders for react-testing-library",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "babel src -d dist",
-    "semantic-release": "semantic-release",
-    "cm": "npx git-cz",
-    "travis-deploy-once": "travis-deploy-once"
+    "build": "npx tsc src/index.ts --declaration --outDir dist"
   },
   "repository": {
     "type": "git",
@@ -21,20 +19,21 @@
   },
   "homepage": "https://github.com/gpx/render-composer#readme",
   "devDependencies": {
-    "@babel/cli": "7.5.5",
-    "@babel/preset-env": "7.5.5",
-    "@babel/preset-react": "7.0.0",
-    "@testing-library/jest-dom": "4.0.1",
-    "@testing-library/react": "9.1.3",
-    "babel-jest": "24.9.0",
-    "jest": "24.9.0",
-    "prettier": "1.18.2",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "semantic-release": "15.13.21",
-    "travis-deploy-once": "5.0.11"
+    "@babel/cli": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "babel-jest": "^27.4.6",
+    "jest": "^27.4.7",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@types/react": "^17.0.39",
     "lodash.clone": "4.5.0",
     "lodash.clonedeep": "4.5.0"
   }
