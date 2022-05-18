@@ -1,6 +1,6 @@
 {
   "name": "@gpx/render-composer",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Create complex renders for react-testing-library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,21 +19,22 @@
   },
   "homepage": "https://github.com/gpx/render-composer#readme",
   "devDependencies": {
-    "@babel/cli": "^7.17.0",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.2",
-    "babel-jest": "^27.4.6",
-    "jest": "^27.4.7",
-    "prettier": "^2.5.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "typescript": "^4.5.5"
+    "@babel/cli": "^7.17.10",
+    "@babel/preset-env": "^7.17.12",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "babel-jest": "^28.1.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "prettier": "^2.6.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@types/react": "^17.0.39",
+    "@types/react": "^18.0.9",
     "lodash.clone": "4.5.0",
     "lodash.clonedeep": "4.5.0"
   }
