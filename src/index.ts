@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import cloneDeep from "lodash.clonedeep";
 
 type Data = Object | (() => Object);
-export type UI = (ui: UI, data: Data) => ReactNode;
+export type UI = (ui: ReactNode, data: Data) => ReactNode;
 
 class Wrap {
   ui: UI;

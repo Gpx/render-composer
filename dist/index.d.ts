@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 declare type Data = Object | (() => Object);
-export declare type UI = (ui: UI, data: Data) => ReactNode;
+export declare type UI = (ui: ReactNode, data: Data) => ReactNode;
 declare class Wrap {
     ui: UI;
     childWrap: Wrap;
